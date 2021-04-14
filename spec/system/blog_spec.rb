@@ -15,24 +15,19 @@ RSpec.describe Blog do
       click_on "Log in"
     end
     it '非同期で登録すること', js: true do
-      first_row = find("#favorite-#{third_blog.id}")
-      second_row = find("#favorite-#{second_blog.id}")
-      click_link nil, href: favorites_path(blog_id: second_blog.id)
-      expect(first_row).not_to have_selector '.delete-favorite'
-      expect(first_row).to have_selector '.post-favorite'
-      expect(second_row).to have_selector '.delete-favorite'
-      expect(second_row).not_to have_selector '.post-favorite'
+      find(".post-#{second_blog.id}").click
+      expect(page).not_to have_css ".post-#{second_blog.id}"
+      expect(page).to have_css ".delete-#{second_blog.id}"
+      expect(page).to have_css ".post-#{third_blog.id}"
+      expect(page).not_to have_css ".delete-#{third_blog.id}"
     end
     it '非同期で解除すること', js: true do
-      first_row = find("#favorite-#{third_blog.id}")
-      second_row = find("#favorite-#{second_blog.id}")
-      click_link nil, href: favorites_path(blog_id: second_blog.id)
-      sleep 0.5
-      click_link nil, href: favorite_path(id: user.favorites.first.id, blog_id: second_blog.id)
-      expect(first_row).not_to have_selector '.delete-favorite'
-      expect(first_row).to have_selector '.post-favorite'
-      expect(second_row).not_to have_selector '.delete-favorite'
-      expect(second_row).to have_selector '.post-favorite'
+      find(".post-#{second_blog.id}").click
+      find(".delete-#{second_blog.id}").click
+      expect(page).to have_css ".post-#{second_blog.id}"
+      expect(page).not_to have_css ".delete-#{second_blog.id}"
+      expect(page).to have_css ".post-#{third_blog.id}"
+      expect(page).not_to have_css ".delete-#{third_blog.id}"
     end
   end
 end
