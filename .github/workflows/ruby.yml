@@ -42,7 +42,7 @@ jobs:
       - name: Create Feedback
         env:
           RAILS_ENV: "test"
-          DATABASE_URL: "postgres://postgres@localhost:5432/rails_transaction_task_test"
+          DATABASE_URL: "postgres://postgres@localhost:5432/rails_ajax_task_test"
         run: |
           bundle exec rails db:setup
           bundle exec rspec -r ./spec/my_formatter.rb -f MyFormatter -o .github/feedback_template.md
