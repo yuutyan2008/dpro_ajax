@@ -50,7 +50,7 @@ jobs:
       - name: Rspec Results
         env:
           RAILS_ENV: "test"
-          DATABASE_URL: "postgres://postgres@localhost:5432/rails_functions_task_test"
+          DATABASE_URL: "postgres://postgres@localhost:5432/rails_ajax_task_test"
         run: |
           bundle exec rspec
         continue-on-error: true
