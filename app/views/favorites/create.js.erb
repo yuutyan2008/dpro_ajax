@@ -1,0 +1,2 @@
+<%# アクションが実行されると、#favorite-button の部分が非同期で更新されます。 %>
+$("#favorite-<%= @blog.id %>").html("<%= j(render 'blogs/favorite', blog: @blog) %>");

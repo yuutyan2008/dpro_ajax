@@ -1,10 +1,14 @@
-<% if Favorite.find_by(user_id: current_user.id, blog_id: blog.id) %>
-  <%= link_to favorite_path(id: current_user.favorites.find_by(blog_id: blog.id)), method: :delete, class: "favorite-link delete-#{blog.id}" do %>
-    <i class="material-icons">star</i>
+<div id="favorite-button">
+  <% if Favorite.find_by(user_id: current_user.id, blog_id: blog.id) %>
+  <!-- blog_favorite_path に blog を追加して、:blog_id が正しく渡されるように修正 -->
+  <%= link_to blog_favorite_path(blog, id: current_user.favorites.find_by(blog_id: blog.id)), method: :delete, remote: true, class: "favorite-link delete-#{blog.id}" do %>
+  <i class="material-icons">star</i>
   <% end %>
-<% else %>
-  <%= link_to favorites_path(blog_id: blog.id), method: :post, class: "favorite-link post-#{blog.id}" do %>
-    <i class="material-icons">star_border</i>
-    <% end %>
-<% end %>
-<%= blog.favorites.length %>
+  <% else %>
+  <!-- blog_favorites_path は変更なし、登録時のリクエストを送るために使用 -->
+  <%= link_to blog_favorites_path(blog_id: blog.id), method: :post, remote: true, class: "favorite-link post-#{blog.id}" do %>
+  <i class="material-icons">star_border</i>
+  <% end %>
+  <% end %>
+  <span id="favorite-count"><%= blog.favorites.count %></span>
+</div>

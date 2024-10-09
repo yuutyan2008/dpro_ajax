@@ -1,0 +1,2 @@
+<%# render 'blogs/index'でapp/views/blogs/index.html.erbを取得 %>
+$("#favorite-<%= @blog.id %>").html("<%= j(render 'blogs/favorite', blog: @blog) %>");
